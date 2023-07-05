@@ -1,6 +1,7 @@
 from pydantic import BaseModel, validator, ValidationError
 
-class ModelColum(BaseModel):
+class ModelColumn(BaseModel):
+    name: str
     type: str
     length: int = None # Length opcional para CHAR ou VARCHAR
     pk: bool = False
@@ -15,7 +16,7 @@ class ModelColum(BaseModel):
     # Caso o tipo seja VARCHAR ou CHAR, o length deve ser informado
     @validator('length')
     def validate_length(cls, v, values, **kwargs):
-        if 'type' in values and (values['type'] == 'varchar' or values['type'] == 'char') and v is None:
+        if 'type' in values and (values['type'] == 'varchar' or values['type'] == 'char' or values['type'] == 'int' or values['type'] == 'char') and v is None:
             raise ValidationError('The length cannot be None for type "varchar" or "char".')
         return v
 

@@ -25,3 +25,36 @@
 `BLOB ou BYTEA`: Para dados binários, como imagens, áudio, etc.
 
 `TINYINT`: É um tipo de dados numérico usado para números inteiros muito pequenos. Em sistemas como MySQL, ele tem um alcance de -128 a 127 para TINYINT assinado, e de 0 a 255 para TINYINT não assinado.
+
+'''
+    SELECT COLUMN_NAME, DATA_TYPE, COLUMN_DEFAULT, IS_NULLABLE, COLUMN_TYPE 
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_SCHEMA = 'jota'
+AND TABLE_NAME = 'contato';
+
+INTEGER: models.IntegerField()
+SMALLINT: models.SmallIntegerField()
+BIGINT: models.BigIntegerField()
+DECIMAL ou NUMERIC: models.DecimalField(max_digits=_, decimal_places=_) - você precisa especificar max_digits (o número total de dígitos) e decimal_places (o número de dígitos após o ponto decimal).
+FLOAT ou REAL: models.FloatField()
+CHAR(n): models.CharField(max_length=_) - você precisa especificar max_length.
+VARCHAR(n): models.CharField(max_length=_) - você precisa especificar max_length.
+TEXT: models.TextField()
+DATE: models.DateField()
+TIME: models.TimeField()
+DATETIME ou TIMESTAMP: models.DateTimeField()
+BOOLEAN ou BIT: models.BooleanField()
+BLOB ou BYTEA: models.BinaryField()
+TINYINT: Django não tem um campo específico para TINYINT, mas você pode usar models.IntegerField() e garantir que o valor esteja dentro do alcance de um TINYINT.
+MEDIUMINT: Django também não tem um campo específico para MEDIUMINT, mas você pode usar models.IntegerField().
+DOUBLE PRECISION: models.FloatField()
+ENUM: Django não tem suporte nativo para ENUM, mas você pode imitar o comportamento de um ENUM usando models.CharField() e a opção choices.
+SET: Django não tem suporte nativo para o tipo SET, mas você pode conseguir algo similar usando models.ManyToManyField().
+JSON: models.JSONField()
+UUID: models.UUIDField()
+ARRAY: Django não tem suporte nativo para o tipo ARRAY, mas alguns pacotes de terceiros (como django-postgres-extra) fornecem esse tipo de campo.
+GEOMETRY, POINT, LINE, POLYGON, etc.: Django tem suporte a campos geoespaciais através de seu módulo GIS. Consulte a documentação do Django para mais informações.
+INTERVAL: Django não tem suporte nativo para INTERVAL, mas você pode usar models.DurationField() para armazenar durações de tempo que podem servir a um propósito similar.
+CIDR, INET, MACADDR: Django tem models.GenericIPAddressField() para endereços IP, mas não tem suporte nativo para CIDR ou MACADDR.
+Lembre-se, a implementação exata e a disponibilidade desses campos podem variar dependendo da versão do Django e do banco de dados backend que você está usando. Consulte a documentação do Django para obter as informações mais atualizadas.
+'''
