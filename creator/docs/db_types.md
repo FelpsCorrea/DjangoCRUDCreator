@@ -27,10 +27,25 @@
 `TINYINT`: É um tipo de dados numérico usado para números inteiros muito pequenos. Em sistemas como MySQL, ele tem um alcance de -128 a 127 para TINYINT assinado, e de 0 a 255 para TINYINT não assinado.
 
 '''
-    SELECT COLUMN_NAME, DATA_TYPE, COLUMN_DEFAULT, IS_NULLABLE, COLUMN_TYPE 
+SELECT * 
 FROM INFORMATION_SCHEMA.COLUMNS
 WHERE TABLE_SCHEMA = 'jota'
-AND TABLE_NAME = 'contato';
+AND TABLE_NAME = 'abacate';
+
+SELECT 
+  C.*,
+  K.REFERENCED_TABLE_NAME as FK_REFERENCED_TABLE
+FROM 
+  INFORMATION_SCHEMA.COLUMNS as C
+LEFT JOIN 
+  INFORMATION_SCHEMA.KEY_COLUMN_USAGE as K
+ON 
+  C.TABLE_NAME = K.TABLE_NAME 
+  AND C.COLUMN_NAME = K.COLUMN_NAME
+  AND C.TABLE_SCHEMA = K.TABLE_SCHEMA
+WHERE 
+  C.TABLE_SCHEMA = 'jota'
+  AND C.TABLE_NAME = 'abacate';
 
 INTEGER: models.IntegerField()
 SMALLINT: models.SmallIntegerField()
