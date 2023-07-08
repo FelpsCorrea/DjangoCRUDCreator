@@ -1,4 +1,3 @@
-from pydantic import BaseModel
 from typing import List
 
 from references.db_ref import DBColumn, DBTable
@@ -40,10 +39,18 @@ class ModelColumn(DBColumn):
                 return "models.BigIntegerField("
             
         elif self.type == "decimal":
-            if self.max_length is not None and self.decimal_places is not None:
-                return f"models.DecimalField(max_digits={self.max_length}, decimal_places={self.decimal_places}"
-            else:
-                return "models.DecimalField("
+            string = "models.DecimalField("
+            if self.max_length is not None:
+                string += f"max_digits={self.max_length}"
+            
+            if self.decimal_places is not None:
+                if string[-1] != "(":
+                    string += ","
+                
+                string += f"decimal_places={self.decimal_places}"
+                
+            return string
+            
             
         elif self.type == "float" or self.type == "double":
             return "models.FloatField("
